@@ -71,7 +71,7 @@ app.post( '/pr', function( req, res, next ) {
 
             var submodules = files.reduce( function( memo, file ) {
                 var patch = file.patch;
-                if ( patch.search( 'Subproject commit' ) != -1 ) {
+                if ( patch && patch.search( 'Subproject commit' ) != -1 ) {
                     memo.push({
                         name: file.filename,
                         old: patch.replace( /^[\s\S]*subproject\scommit\s([^\n]*)[\s\S]*subproject\scommit\s.*$/i, '$1' ),
