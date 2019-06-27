@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ "$1" = "start" ]; then
+  NODE_ENV=prod PORT=80 forever start -l /opt/submodular.log -a /opt/submodular/app.js
+  echo "Started"
+elif [ "$1" = "stop" ]; then
+  forever stop /opt/submodular/app.js
+  echo "Stopped"
+elif [ "$1" = "restart" ]; then
+  forever stop /opt/submodular/app.js
+  NODE_ENV=prod PORT=80 forever start -l /opt/submodular.log -a /opt/submodular/app.js
+  echo "Restarted"
+elif [[ "$1" = "logs" || "$1" = "log" ]]; then
+  tail -f /opt/submodular.log
+else
+  echo 'Invalid command. You can only use "start", "stop", "restart", or "logs"'
+fi
